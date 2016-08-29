@@ -19,25 +19,29 @@ const defineApply = (eventHandlers) =>
       .map((handler) => handler(state, event))
       .getOrElse(state);
 
-const Brevent = {};
+const defineState = (apply, initialState) =>
+  (events) => R.reduce(apply, initialState, events);
 
-Brevent.createApp = (config) => {
+const Bravent = {};
+
+Bravent.createApp = (config) => {
   const commandHandlers = config.commandHandlers || {};
   const eventHandlers = config.eventHandlers || {};
   const initialState = config.initialState || {};
 
   const handle = defineHandle(commandHandlers);
   const apply = defineApply(eventHandlers);
+  const state = defineState(apply, initialState);
 
   return (events) => {
-    const state = R.reduce(apply, initialState, events);
+    const currentState = state(events);
 
     return {
-      state: () => state,
-      dispatch: (command) =>  handle(state, command)
+      state: () => currentState,
+      dispatch: (command) => handle(currentState, command)
     };
   };
 };
 
-export default Brevent;
+export default Bravent;
 

@@ -1,13 +1,13 @@
 {
-  "name": "brevent",
+  "name": "bravent",
   "version": "0.0.1",
   "description": "functional event sourcing",
-  "main": "index.js",
+  "main": "bravent.js",
   "author": "vvgomes",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vvgomes/brevent.git"
+    "url": "https://github.com/vvgomes/bravent.git"
   },
   "dependencies": {
     "ramda": "^0.19.1",

@@ -1,12 +1,12 @@
 import assert from "assert";
 import R from "ramda";
 import Validation from "data.validation"
-import Upshot from "../upshot";
+import Bravent from "../bravent";
 
 describe("an event sourcing app", () => {
 
   // just a simple counter
-  const app = Upshot.createApp({
+  const app = Bravent.createApp({
     initialState: { counter: 0 },
 
     eventHandlers: {
@@ -22,8 +22,10 @@ describe("an event sourcing app", () => {
 
   describe("state", () => {
     it("is the initial state by default", () => {
+      const events = [];
+
       assert.deepEqual(
-        app([]).state(),
+        app(events).state(),
         { counter: 0 }
       );
     });
@@ -74,18 +76,11 @@ describe("an event sourcing app", () => {
 
   describe("dispatch", () => {
     it("produces events after command handled successfully", () => {
-      const firstCommand = { type: "incrementCounter" };
+      const command = { type: "incrementCounter" };
 
       assert.deepEqual(
-        app([]).dispatch(firstCommand),
+        app([]).dispatch(command),
         [{ type: "counterIncremented" }]
-      );
-
-      const secondCommand = { type: "decrementCounter" };
-
-      assert.deepEqual(
-        app([]).dispatch(secondCommand),
-        [{ type: "counterDecremented" }]
       );
     });
 
