@@ -19,9 +19,9 @@ const defineApply = (eventHandlers) =>
       .map((handler) => handler(state, event))
       .getOrElse(state);
 
-const Upshot = {};
+const Brevent = {};
 
-Upshot.createApp = (config) => {
+Brevent.createApp = (config) => {
   const commandHandlers = config.commandHandlers || {};
   const eventHandlers = config.eventHandlers || {};
   const initialState = config.initialState || {};
@@ -39,5 +39,5 @@ Upshot.createApp = (config) => {
   };
 };
 
-export default Upshot;
+export default Brevent;
 

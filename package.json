@@ -1,5 +1,5 @@
 {
-  "name": "upshot",
+  "name": "brevent",
   "version": "0.0.1",
   "description": "functional event sourcing",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vvgomes/upshot.git"
+    "url": "https://github.com/vvgomes/brevent.git"
   },
   "dependencies": {
     "ramda": "^0.19.1",
