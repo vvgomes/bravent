@@ -2,7 +2,7 @@
   "name": "bravent",
   "version": "0.0.1",
   "description": "functional event sourcing",
-  "main": "bravent.js",
+  "main": "lib/bravent.js",
   "author": "vvgomes",
   "license": "ISC",
   "repository": {
