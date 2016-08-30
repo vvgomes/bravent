@@ -27,26 +27,36 @@ describe("createApp", () => {
   const createApp = defineCreateApp(defineHandle, defineApply, defineState);
   const app = createApp(config);
 
-  const events = [
-    { type: "counterIncremented" },
-    { type: "counterIncremented" },
-    { type: "counterIncremented" }
-  ];
+  describe("#state", () => {
+    it("rebuilds the current state based on events", () => {
+      const events = [
+        { type: "counterIncremented" },
+        { type: "counterIncremented" }
+      ];
 
-  it("rebuilds the current state", () => {
-    assert.deepEqual(
-      app(events).state(),
-      { counter: 3 }
-    );
+      assert.deepEqual(
+        app(events).state(),
+        { counter: 2 }
+      );
+    });
+
+    it("defaults to the initial state", () => {
+      assert.deepEqual(
+        app().state(),
+        { counter: 0 }
+      );
+    });
   });
 
-  it("dispatches commands", () => {
-    const command = { type: "incrementCounter" };
+  describe("#dispatch", () => {
+    it("sends a command to be handled by the app", () => {
+      const command = { type: "incrementCounter" };
 
-    assert.deepEqual(
-      app(events).dispatch(command),
-      [{ type: "counterIncremented" }]
-    );
+      assert.deepEqual(
+        app().dispatch(command),
+        [{ type: "counterIncremented" }]
+      );
+    });
   });
 });
 
