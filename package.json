@@ -2,7 +2,7 @@
   "name": "bravent",
   "version": "0.0.4",
   "description": "functional event sourcing",
-  "main": "lib/bravent.js",
+  "main": "dist/bundle.js",
   "author": "vvgomes",
   "license": "ISC",
   "repository": {
@@ -25,7 +25,8 @@
     ]
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-register --recursive"
+    "test": "mocha --compilers js:babel-register --recursive",
+    "dist": "mkdir -p dist && babel lib --out-file dist/bundle.js"
   }
 }
 
