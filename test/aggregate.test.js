@@ -1,4 +1,5 @@
 import assert from "assert";
+import sinon from "sinon";
 import R from "ramda";
 import Validation from "data.validation";
 import defineAggregate from "../lib/aggregate";
@@ -9,7 +10,8 @@ const Failure = Validation.Failure;
 describe("Aggregate", () => {
 
   const apply = (state, event) =>
-    R.equals("incremented", event.type) ? state + 1 : state;
+    R.equals("incremented", event.type) ?
+      state + 1 : state;
 
   const handle = (state, command) =>
     R.equals("increment", command.type) ?
@@ -48,16 +50,13 @@ describe("Aggregate", () => {
 
       it("runs the success callback", () => {
         const command = { type: "increment" };
-
-        let result; // to be called with a mock fw
-        const onSuccess = (newEvents) => result = newEvents;
+        const onSuccess = sinon.spy();
+        const onFailure = sinon.spy();
 
         Aggregate.of([]).dispatch(command, onSuccess);
 
-        assert.deepEqual(
-          result,
-          [{ type: "incremented" }]
-        );
+        assert(onSuccess.calledWith([{ type: "incremented" }]));
+        assert(!onFailure.called);
       });
 
       it("accepts further commands", () => {
@@ -93,14 +92,13 @@ describe("Aggregate", () => {
 
       it("runs the failure callback", () => {
         const command = { type: "decrement" };
-
-        let result; // to be called with a mock fw
-        const onSuccess = () => {};
-        const onFailure = (errors) => result = errors;
+        const onSuccess = sinon.spy();
+        const onFailure = sinon.spy();
 
         Aggregate.of([]).dispatch(command, onSuccess, onFailure);
 
-        assert.deepEqual(result, [ "Error" ]);
+        assert(onFailure.calledWith(["Error"]));
+        assert(!onSuccess.called);
       });
     });
   });
