@@ -1,6 +1,6 @@
 {
   "name": "bravent",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Functional Event Sourcing",
   "main": "dist/bravent.js",
   "author": "vvgomes",
