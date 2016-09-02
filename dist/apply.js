@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ramda = require("ramda");
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
 var _data = require("data.maybe");
 
 var _data2 = _interopRequireDefault(_data);

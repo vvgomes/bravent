@@ -3,14 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _ramda = require("ramda");
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
-var _data = require("data.validation");
-
-var _data2 = _interopRequireDefault(_data);
+exports.Failure = exports.Success = exports.defineAggregate = undefined;
 
 var _handle = require("./handle");
 
@@ -24,24 +17,26 @@ var _aggregate = require("./aggregate");
 
 var _aggregate2 = _interopRequireDefault(_aggregate);
 
+var _data = require("data.validation");
+
+var _data2 = _interopRequireDefault(_data);
+
+var _ramda = require("ramda");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Bravent = {
-  Success: _data2.default.Success,
-  Failure: _data2.default.Failure,
+var defineAggregateFromConfig = function defineAggregateFromConfig() {
+  var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-  defineAggregate: function defineAggregate() {
-    var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var commandHandlers = (0, _ramda.propOr)({}, "commandHandlers", config);
+  var eventHandlers = (0, _ramda.propOr)({}, "eventHandlers", config);
+  var initialState = (0, _ramda.propOr)({}, "initialState", config);
 
-    var commandHandlers = _ramda2.default.propOr({}, "commandHandlers", config);
-    var eventHandlers = _ramda2.default.propOr({}, "eventHandlers", config);
-    var initialState = _ramda2.default.propOr({}, "initialState", config);
-
-    var handle = (0, _handle2.default)(commandHandlers);
-    var apply = (0, _apply2.default)(eventHandlers);
-
-    return (0, _aggregate2.default)(apply, handle, initialState);
-  }
+  var handle = (0, _handle2.default)(commandHandlers);
+  var apply = (0, _apply2.default)(eventHandlers);
+  return (0, _aggregate2.default)(apply, handle, initialState);
 };
 
-exports.default = Bravent;
+exports.defineAggregate = defineAggregateFromConfig;
+var Success = exports.Success = _data2.default.Success;
+var Failure = exports.Failure = _data2.default.Failure;

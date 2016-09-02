@@ -1,5 +1,7 @@
 import assert from "assert";
-import { defineAggregate, Success, Failure } from "../lib/bravent";
+import sinon from "sinon";
+import { identity } from "ramda";
+import { defineAggregate, Success } from "../lib/bravent";
 
 describe("a Bravent aggregate", () => {
 
@@ -35,18 +37,6 @@ describe("a Bravent aggregate", () => {
         .state();
 
     assert.deepEqual(result, 0);
-  });
-  
-  it("collects errors from unsuccessful commands", () => {
-    let result;
-     
-    Counter.of([])
-      .dispatch({ type: "incrementCounter" })
-      .dispatch({ type: "unknown" }, () => {}, (errors) => result = errors)
-      .dispatch({ type: "decrementCounter" })
-      .state();
-
-    assert.deepEqual(result, ["Cannot handle command of type 'unknown'."]);
   });
 });
 

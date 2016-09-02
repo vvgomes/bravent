@@ -8,10 +8,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ramda = require("ramda");
 
-var _ramda2 = _interopRequireDefault(_ramda);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var defineAggregate = function defineAggregate(apply, handle, initialState) {
@@ -27,17 +23,16 @@ var defineAggregate = function defineAggregate(apply, handle, initialState) {
     _createClass(Aggregate, [{
       key: "state",
       value: function state() {
-        return _ramda2.default.reduce(apply, initialState, this.events);
+        return (0, _ramda.reduce)(apply, initialState, this.events);
       }
     }, {
       key: "dispatch",
       value: function dispatch(command) {
-        var onSuccess = arguments.length <= 1 || arguments[1] === undefined ? _ramda2.default.identity : arguments[1];
-        var onFailure = arguments.length <= 2 || arguments[2] === undefined ? _ramda2.default.identity : arguments[2];
+        var onSuccess = arguments.length <= 1 || arguments[1] === undefined ? _ramda.identity : arguments[1];
+        var onFailure = arguments.length <= 2 || arguments[2] === undefined ? _ramda.identity : arguments[2];
 
-        var success = _ramda2.default.pipe(_ramda2.default.tap(onSuccess), _ramda2.default.concat(this.events), Aggregate.of);
-
-        var failure = _ramda2.default.pipe(_ramda2.default.tap(onFailure), _ramda2.default.always(this));
+        var success = (0, _ramda.pipe)((0, _ramda.tap)(onSuccess), (0, _ramda.concat)(this.events), Aggregate.of);
+        var failure = (0, _ramda.pipe)((0, _ramda.tap)(onFailure), (0, _ramda.always)(this));
 
         return handle(this.state(), command).fold(failure, success);
       }
