@@ -1,11 +1,11 @@
-import assert from "assert";
-import R from "ramda";
 import defineApply from "../lib/apply";
+import assert from "assert";
+import { evolve, inc } from "ramda";
 
 describe("apply", () => {
   const eventHandlers = {
     counterIncremented: (state, event) =>
-      R.evolve({ counter: R.inc }, state)
+      evolve({ counter: inc }, state)
   };
  
   const apply = defineApply(eventHandlers);

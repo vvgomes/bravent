@@ -1,8 +1,8 @@
+import defineAggregate from "../lib/aggregate";
+import Validation from "data.validation";
 import assert from "assert";
 import sinon from "sinon";
-import R from "ramda";
-import Validation from "data.validation";
-import defineAggregate from "../lib/aggregate";
+import { equals } from "ramda";
 
 const Success = Validation.Success;
 const Failure = Validation.Failure;
@@ -10,16 +10,16 @@ const Failure = Validation.Failure;
 describe("Aggregate", () => {
 
   const apply = (state, event) =>
-    R.equals("incremented", event.type) ?
+    equals("incremented", event.type) ?
       state + 1 : state;
 
   const handle = (state, command) =>
-    R.equals("increment", command.type) ?
+    equals("increment", command.type) ?
       Success([{ type: "incremented" }]) : Failure(["Error"]);
 
   const Aggregate = defineAggregate(apply, handle, 0);
 
-  describe("#state", () => {
+  describe("state", () => {
 
     it("defaults to the initial state", () => {
       assert.deepEqual(Aggregate.of([]).state(), 0);
@@ -36,7 +36,7 @@ describe("Aggregate", () => {
     });
   });
 
-  describe("#dispatch", () => {
+  describe("dispatch", () => {
 
     describe("when successful", () => {
       it("creates a new aggregate with additional events", () => {

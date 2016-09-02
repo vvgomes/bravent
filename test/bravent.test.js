@@ -1,12 +1,9 @@
 import assert from "assert";
-import Bravent from "../lib/bravent";
-
-const Success = Bravent.Success;
-const Failure = Bravent.Failure;
+import { defineAggregate, Success, Failure } from "../lib/bravent";
 
 describe("a Bravent aggregate", () => {
 
-  const Counter = Bravent.defineAggregate({
+  const Counter = defineAggregate({
     initialState: 0,
     eventHandlers: {
       counterIncremented: (state, event) => state + 1,
