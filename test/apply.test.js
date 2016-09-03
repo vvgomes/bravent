@@ -2,7 +2,7 @@ import defineApply from "../lib/apply";
 import assert from "assert";
 import { evolve, inc } from "ramda";
 
-describe("apply", () => {
+describe("apply()", () => {
   const eventHandlers = {
     counterIncremented: (state, event) =>
       evolve({ counter: inc }, state)

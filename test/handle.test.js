@@ -2,7 +2,7 @@ import assert from "assert";
 import Validation from "data.validation"
 import defineHandle from "../lib/handle";
 
-describe("handle", () => {
+describe("handle()", () => {
   const commandHandlers = {
     incrementCounter: (state, command) =>
       [{ type: "counterIncremented" }]

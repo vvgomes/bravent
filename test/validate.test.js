@@ -3,7 +3,7 @@ import Validation from "data.validation";
 import assert from "assert";
 import { has, pipe, prop, lt } from "ramda";
 
-describe("validate", () => {
+describe("validate()", () => {
 
   const validations = {
     "Date must be present.": has("date"),

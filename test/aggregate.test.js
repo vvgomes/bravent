@@ -19,7 +19,7 @@ describe("Aggregate", () => {
 
   const Aggregate = defineAggregate(apply, handle, 0);
 
-  describe("state", () => {
+  describe("#state()", () => {
 
     it("defaults to the initial state", () => {
       assert.deepEqual(Aggregate.of([]).state(), 0);
@@ -36,7 +36,7 @@ describe("Aggregate", () => {
     });
   });
 
-  describe("dispatch", () => {
+  describe("#dispatch()", () => {
 
     describe("when successful", () => {
       it("creates a new aggregate with additional events", () => {
