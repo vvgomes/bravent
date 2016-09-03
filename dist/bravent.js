@@ -3,16 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validate = exports.Failure = exports.Success = exports.defineAggregate = undefined;
-
-var _validate = require("./validate");
-
-Object.defineProperty(exports, "validate", {
-  enumerable: true,
-  get: function get() {
-    return _validate.validate;
-  }
-});
+exports.Failure = exports.Success = exports.validate = exports.defineAggregate = undefined;
 
 var _handle = require("./handle");
 
@@ -26,9 +17,7 @@ var _aggregate = require("./aggregate");
 
 var _aggregate2 = _interopRequireDefault(_aggregate);
 
-var _data = require("data.validation");
-
-var _data2 = _interopRequireDefault(_data);
+var _validate = require("./validate");
 
 var _ramda = require("ramda");
 
@@ -43,9 +32,11 @@ var defineAggregateFromConfig = function defineAggregateFromConfig() {
 
   var handle = (0, _handle2.default)(commandHandlers);
   var apply = (0, _apply2.default)(eventHandlers);
+
   return (0, _aggregate2.default)(apply, handle, initialState);
 };
 
 exports.defineAggregate = defineAggregateFromConfig;
-var Success = exports.Success = _data2.default.Success;
-var Failure = exports.Failure = _data2.default.Failure;
+exports.validate = _validate.validate;
+exports.Success = _validate.Success;
+exports.Failure = _validate.Failure;
