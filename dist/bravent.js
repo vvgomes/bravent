@@ -3,7 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Failure = exports.Success = exports.defineAggregate = undefined;
+exports.validate = exports.Failure = exports.Success = exports.defineAggregate = undefined;
+
+var _validate = require("./validate");
+
+Object.defineProperty(exports, "validate", {
+  enumerable: true,
+  get: function get() {
+    return _validate.validate;
+  }
+});
 
 var _handle = require("./handle");
 
