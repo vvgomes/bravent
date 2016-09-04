@@ -3,12 +3,9 @@ import assert from "assert";
 import { evolve, inc } from "ramda";
 
 describe("apply()", () => {
-  const eventHandlers = {
-    counterIncremented: (state, event) =>
-      evolve({ counter: inc }, state)
-  };
- 
-  const apply = defineApply(eventHandlers);
+
+  const counterIncremented = (state, event) => evolve({ counter: inc }, state);
+  const apply = defineApply({ counterIncremented });
  
   it("calls appropriate handler for event and state", () => {
     const state = { counter: 0 };

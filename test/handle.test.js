@@ -1,6 +1,6 @@
 import assert from "assert";
-import Validation from "data.validation"
 import defineHandle from "../lib/handle";
+import { Failure } from "../lib/validation";
 
 describe("handle()", () => {
   const commandHandlers = {
@@ -26,7 +26,7 @@ describe("handle()", () => {
 
     assert.deepEqual(
       handle(state, command),
-      Validation.Failure(["Cannot handle command of type 'unknown'."])
+      Failure(["Cannot handle command of type 'unknown'."])
     );
   });
 
@@ -36,7 +36,7 @@ describe("handle()", () => {
 
     assert.deepEqual(
       handle(state, command),
-      Validation.Failure(["Cannot handle command of type 'undefined'."])
+      Failure(["Cannot handle command of type 'undefined'."])
     );
   });
 });

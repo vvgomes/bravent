@@ -17,7 +17,7 @@ var _aggregate = require("./aggregate");
 
 var _aggregate2 = _interopRequireDefault(_aggregate);
 
-var _validate = require("./validate");
+var _validation = require("./validation");
 
 var _ramda = require("ramda");
 
@@ -37,6 +37,6 @@ var defineAggregateFromConfig = function defineAggregateFromConfig() {
 };
 
 exports.defineAggregate = defineAggregateFromConfig;
-exports.validate = _validate.validate;
-exports.Success = _validate.Success;
-exports.Failure = _validate.Failure;
+exports.validate = _validation.validate;
+exports.Success = _validation.Success;
+exports.Failure = _validation.Failure;

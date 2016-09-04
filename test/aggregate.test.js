@@ -1,38 +1,43 @@
 import defineAggregate from "../lib/aggregate";
-import Validation from "data.validation";
+import { Success, Failure } from "../lib/validation";
 import assert from "assert";
 import sinon from "sinon";
-import { equals } from "ramda";
-
-const Success = Validation.Success;
-const Failure = Validation.Failure;
+import { equals, evolve, inc, propOr } from "ramda";
 
 describe("Aggregate", () => {
 
   const apply = (state, event) =>
-    equals("incremented", event.type) ?
-      state + 1 : state;
+    propOr(state, event.type, {
+      counterIncremented: evolve({ counter: inc }, state)
+    });
 
   const handle = (state, command) =>
-    equals("increment", command.type) ?
-      Success([{ type: "incremented" }]) : Failure(["Error"]);
+    propOr(Failure(["Error"]), command.type, {
+      incrementCounter: Success([{ type: "counterIncremented" }])
+    });
 
-  const Aggregate = defineAggregate(apply, handle, 0);
+  const Counter = defineAggregate(apply, handle, { counter: 0 });
 
   describe("#state()", () => {
 
     it("defaults to the initial state", () => {
-      assert.deepEqual(Aggregate.of([]).state(), 0);
+      assert.deepEqual(
+        Counter.of([]).state(),
+        { counter: 0 }
+      );
     });
 
     it("rebuilds state based on events", () => {
       const events = [
-        { type: "incremented" },
-        { type: "incremented" },
-        { type: "incremented" }
+        { type: "counterIncremented" },
+        { type: "counterIncremented" },
+        { type: "counterIncremented" }
       ];
       
-      assert.deepEqual(Aggregate.of(events).state(), 3);
+      assert.deepEqual(
+        Counter.of(events).state(),
+        { counter: 3 }
+      );
     });
   });
 
@@ -40,40 +45,40 @@ describe("Aggregate", () => {
 
     describe("when successful", () => {
       it("creates a new aggregate with additional events", () => {
-        const command = { type: "increment" };
+        const command = { type: "incrementCounter" };
 
         assert.deepEqual(
-          Aggregate.of([]).dispatch(command),
-          Aggregate.of([{ type: "incremented" }])
+          Counter.of([]).dispatch(command),
+          Counter.of([{ type: "counterIncremented" }])
         );
       });
 
       it("runs the success callback", () => {
-        const command = { type: "increment" };
+        const command = { type: "incrementCounter" };
         const onSuccess = sinon.spy();
         const onFailure = sinon.spy();
 
-        Aggregate.of([]).dispatch(command, onSuccess);
+        Counter.of([]).dispatch(command, onSuccess);
 
-        assert(onSuccess.calledWith([{ type: "incremented" }]));
+        assert(onSuccess.calledWith([{ type: "counterIncremented" }]));
         assert(!onFailure.called);
       });
 
       it("accepts further commands", () => {
-        const command = { type: "increment" };
+        const command = { type: "incrementCounter" };
 
         const resultingAggregate =
-          Aggregate.of([])
+          Counter.of([])
             .dispatch(command)
             .dispatch(command)
             .dispatch(command)
 
         assert.deepEqual(
           resultingAggregate,
-          Aggregate.of([
-            { type: "incremented" },
-            { type: "incremented" },
-            { type: "incremented" }
+          Counter.of([
+            { type: "counterIncremented" },
+            { type: "counterIncremented" },
+            { type: "counterIncremented" }
           ])
         );
       });
@@ -82,20 +87,20 @@ describe("Aggregate", () => {
     describe("when failed", () => {
 
       it("keeps the same aggregate", () => {
-        const command = { type: "decrement" };
+        const command = { type: "unknown" };
 
         assert.deepEqual(
-          Aggregate.of([]).dispatch(command),
-          Aggregate.of([])
+          Counter.of([]).dispatch(command),
+          Counter.of([])
         );
       });
 
       it("runs the failure callback", () => {
-        const command = { type: "decrement" };
+        const command = { type: "unknown" };
         const onSuccess = sinon.spy();
         const onFailure = sinon.spy();
 
-        Aggregate.of([]).dispatch(command, onSuccess, onFailure);
+        Counter.of([]).dispatch(command, onSuccess, onFailure);
 
         assert(onFailure.calledWith(["Error"]));
         assert(!onSuccess.called);

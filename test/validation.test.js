@@ -1,6 +1,5 @@
-import validate from "../lib/validate";
-import Validation from "data.validation";
 import assert from "assert";
+import { validate, Success, Failure } from "../lib/validation";
 import { has, pipe, prop, lt } from "ramda";
 
 describe("validate()", () => {
@@ -21,7 +20,7 @@ describe("validate()", () => {
 
     assert.deepEqual(
       validate(validations, command),
-      Validation.Success(command)
+      Success(command)
     );
   });
 
@@ -34,7 +33,7 @@ describe("validate()", () => {
 
     assert.deepEqual(
       validate(validations, command),
-      Validation.Failure([
+      Failure([
         "Date must be present.",
         "Amount must be greater than zero."
       ])
