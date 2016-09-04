@@ -1,13 +1,13 @@
 import assert from "assert";
 import { validate, Success, Failure } from "../lib/validation";
-import { has, pipe, prop, lt } from "ramda";
+import { has, pipe, where, lt } from "ramda";
 
 describe("validate()", () => {
 
   const validations = {
     "Date must be present.": has("date"),
     "User ID must be present.": has("userId"), 
-    "Amount must be greater than zero.": pipe(prop("amount"), lt(0)),
+    "Amount must be greater than zero.": where({ amount: lt(0)}),
   };
 
   it("results in success when all predicates are true", () => {
