@@ -7,7 +7,7 @@ Bravest is an [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html
 ## Getting Started
 
 ```
-$ npm install bravent
+$ npm install bravent --save
 ```
 
 ```javascript
