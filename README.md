@@ -28,7 +28,7 @@ const Counter = defineAggregate({
 events = []; // any event store
 
 const counter = Counter.of(events);
-console.log("current state:", counter.state()); // => 0
+console.log(counter.state()); // => 0
 
 counter
   .dispatch({ type: "incrementCounter" })
@@ -36,7 +36,7 @@ counter
   .dispatch({ type: "incrementCounter" })
   .dispatch({ type: "incrementCounter" });
   
-console.log("current state:", counter.state()); // => 2
+console.log(counter.state()); // => 2
 
 ```
 
