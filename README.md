@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/vvgomes/bravent.svg?branch=master)](https://travis-ci.org/vvgomes/bravent)
 
-Bravest is an [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html) micro framework for Javascript. It is inspired on the [Functional Data](https://vimeo.com/131636650) idea by @gregoryyoung. The goal is to define the abstractions needed for an event sourced application in terms of pure functions and immutable data structures.
+Bravent is an [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html) micro framework for Javascript. It is inspired by the [Functional Data](https://vimeo.com/131636650) idea by @gregoryyoung. The goal is to define the abstractions needed for an event sourced application in terms of pure functions and immutable data structures.
 
 ## Getting Started
 
