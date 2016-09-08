@@ -1,8 +1,11 @@
 import defineAggregate from "../lib/aggregate";
-import { Success, Failure } from "../lib/validation";
+import Validation from "data.validation";
 import assert from "assert";
 import sinon from "sinon";
 import { equals, evolve, inc, propOr } from "ramda";
+
+const Success = Validation.Success;
+const Failure = Validation.Failure;
 
 describe("Aggregate", () => {
 

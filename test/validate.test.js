@@ -1,6 +1,10 @@
 import assert from "assert";
-import { validate, Success, Failure } from "../lib/validation";
+import Validation from "data.validation";
+import validate from "../lib/validate";
 import { has, pipe, where, lt } from "ramda";
+
+const Success = Validation.Success;
+const Failure = Validation.Failure;
 
 describe("validate()", () => {
 

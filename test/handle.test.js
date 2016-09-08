@@ -1,6 +1,8 @@
 import assert from "assert";
 import defineHandle from "../lib/handle";
-import { Failure } from "../lib/validation";
+import Validation from "data.validation";
+
+const Failure = Validation.Failure;
 
 describe("handle()", () => {
   const commandHandlers = {

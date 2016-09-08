@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Failure = exports.Success = exports.validate = undefined;
 
 var _data = require("data.validation");
 
@@ -32,6 +31,4 @@ var validate = function validate(command, validations) {
   })), messageAndPredicatePairs(validations));
 };
 
-exports.validate = validate;
-exports.Success = Success;
-exports.Failure = Failure;
+exports.default = validate;
