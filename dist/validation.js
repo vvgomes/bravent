@@ -20,7 +20,7 @@ var messageAndPredicatePairs = _ramda.toPairs;
 var message = _ramda.head;
 var predicate = _ramda.last;
 
-var validate = (0, _ramda.curry)(function (validations, command) {
+var validate = function validate(command, validations) {
   var runValidation = function runValidation(errors, validation) {
     return predicate(validation)(command) ? errors : (0, _ramda.append)(message(validation), errors);
   };
@@ -30,7 +30,7 @@ var validate = (0, _ramda.curry)(function (validations, command) {
   };
 
   return (0, _ramda.pipe)(messageAndPredicatePairs, (0, _ramda.reduce)(runValidation, []), wrapResults)(validations);
-});
+};
 
 exports.validate = validate;
 exports.Success = Success;

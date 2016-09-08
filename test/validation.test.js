@@ -19,7 +19,7 @@ describe("validate()", () => {
     };
 
     assert.deepEqual(
-      validate(validations, command),
+      validate(command, validations),
       Success(command)
     );
   });
@@ -32,7 +32,7 @@ describe("validate()", () => {
     };
 
     assert.deepEqual(
-      validate(validations, command),
+      validate(command, validations),
       Failure([
         "Date must be present.",
         "Amount must be greater than zero."
