@@ -16,20 +16,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Success = _data2.default.Success;
 var Failure = _data2.default.Failure;
 
-var messageAndPredicatePairs = _ramda.toPairs;
 var message = _ramda.head;
 var predicate = _ramda.last;
+var messageAndPredicatePairs = _ramda.toPairs;
 
 var validate = function validate(command, validations) {
-  var runValidation = function runValidation(errors, validation) {
-    return predicate(validation)(command) ? errors : (0, _ramda.append)(message(validation), errors);
+  var run = function run(validation) {
+    return predicate(validation)(command) ? Success(command) : Failure([message(validation)]);
   };
 
-  var wrapResults = function wrapResults(errors) {
-    return (0, _ramda.isEmpty)(errors) ? Success(command) : Failure(errors);
-  };
-
-  return (0, _ramda.pipe)(messageAndPredicatePairs, (0, _ramda.reduce)(runValidation, []), wrapResults)(validations);
+  return (0, _ramda.reduce)(function (result, validation) {
+    return result.ap(run(validation));
+  }, Success((0, _ramda.curryN)((0, _ramda.length)((0, _ramda.keys)(validations)), function () {
+    return command;
+  })), messageAndPredicatePairs(validations));
 };
 
 exports.validate = validate;
