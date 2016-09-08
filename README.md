@@ -30,14 +30,19 @@ events = []; // any event store
 const counter = Counter.of(events);
 console.log(counter.state()); // => 0
 
-counter
-  .dispatch({ type: "incrementCounter" })
-  .dispatch({ type: "decrementCounter" })
-  .dispatch({ type: "incrementCounter" })
-  .dispatch({ type: "incrementCounter" });
+const newCounter =
+  counter
+    .dispatch({ type: "incrementCounter" })
+    .dispatch({ type: "decrementCounter" })
+    .dispatch({ type: "incrementCounter" })
+    .dispatch({ type: "incrementCounter" });
   
-console.log(counter.state()); // => 2
+console.log(newCounter.state()); // => 2
 
 ```
 
 More description to come soon.
+
+## License
+
+Feel free to use this code as you please.
