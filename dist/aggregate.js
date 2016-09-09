@@ -8,6 +8,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ramda = require("ramda");
 
+var _data = require("data.validation");
+
+var _data2 = _interopRequireDefault(_data);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var defineAggregate = function defineAggregate(apply, handle, initialState) {
@@ -34,7 +40,8 @@ var defineAggregate = function defineAggregate(apply, handle, initialState) {
         var success = (0, _ramda.pipe)((0, _ramda.tap)(onSuccess), (0, _ramda.concat)(this.events), Aggregate.of);
         var failure = (0, _ramda.pipe)((0, _ramda.tap)(onFailure), (0, _ramda.always)(this));
 
-        return handle(this.state(), command).fold(failure, success);
+        var normalize = (0, _ramda.when)((0, _ramda.complement)(_ramda.is)(_data2.default), _data2.default.Success);
+        return normalize(handle(this.state(), command)).fold(failure, success);
       }
     }], [{
       key: "of",
