@@ -41,7 +41,7 @@ console.log(newCounter.state()); // => 2
 
 ```
 
-More description to come soon.
+For a complete running example, see [bravent-todo](https://github.com/vvgomes/bravent-todo). More documentation coming soon.
 
 ## License
 
