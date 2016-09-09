@@ -1,6 +1,7 @@
 # Bravent 🏂
 
-[![Build Status](https://travis-ci.org/vvgomes/bravent.svg?branch=master)](https://travis-ci.org/vvgomes/bravent)
+[![build status](https://travis-ci.org/vvgomes/bravent.svg?branch=master)](https://travis-ci.org/vvgomes/bravent)
+[![npm version](https://img.shields.io/npm/v/bravent.svg)](https://www.npmjs.com/package/bravent)
 
 Bravent is an [Event Sourcing](http://martinfowler.com/eaaDev/EventSourcing.html) micro framework for Javascript. It is inspired by the [Functional Data](https://vimeo.com/131636650) idea by Greg Young. The goal is to define the abstractions needed for an event sourced application in terms of pure functions and immutable data structures.
 
