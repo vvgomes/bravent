@@ -9,15 +9,13 @@ const Failure = Validation.Failure;
 
 describe("Aggregate", () => {
 
-  const apply = (state, event) =>
-    propOr(state, event.type, {
-      counterIncremented: evolve({ counter: inc }, state)
-    });
+  const apply = (state, event) => propOr(state, event.type, {
+    counterIncremented: evolve({ counter: inc }, state)
+  });
 
-  const handle = (state, command) =>
-    propOr(Failure(["Error"]), command.type, {
-      incrementCounter: Success([{ type: "counterIncremented" }])
-    });
+  const handle = (state, command) => propOr(Failure(["Error"]), command.type, {
+    incrementCounter: Success([{ type: "counterIncremented" }]) 
+  });
 
   const Counter = defineAggregate(apply, handle, { counter: 0 });
 

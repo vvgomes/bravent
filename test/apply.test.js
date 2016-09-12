@@ -1,10 +1,10 @@
 import defineApply from "../lib/apply";
 import assert from "assert";
+import { stub } from "sinon";
 import { evolve, inc } from "ramda";
 
 describe("apply()", () => {
-
-  const counterIncremented = (state, event) => evolve({ counter: inc }, state);
+  const counterIncremented = stub().returns({ counter: 1 });
   const apply = defineApply({ counterIncremented });
  
   it("calls appropriate handler for event and state", () => {

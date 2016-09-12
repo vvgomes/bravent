@@ -1,7 +1,7 @@
 import assert from "assert";
 import sinon from "sinon";
 import { identity, evolve, inc, dec } from "ramda";
-import { defineAggregate, Success } from "../lib/bravent";
+import { defineAggregate } from "../lib/bravent";
 
 describe("a Bravent aggregate", () => {
 
@@ -12,8 +12,8 @@ describe("a Bravent aggregate", () => {
       counterDecremented: (state, event) => evolve({ counter: dec }, state),
     },
     commandHandlers: {
-      incrementCounter: (state, command) => Success([{ type: "counterIncremented" }]),
-      decrementCounter: (state, command) => Success([{ type: "counterDecremented" }])
+      incrementCounter: (state, command) => [{ type: "counterIncremented" }],
+      decrementCounter: (state, command) => [{ type: "counterDecremented" }]
     }
   });
 

@@ -1,4 +1,5 @@
 import assert from "assert";
+import { stub } from "sinon";
 import defineHandle from "../lib/handle";
 import Validation from "data.validation";
 
@@ -6,12 +7,8 @@ const Success = Validation.Success;
 const Failure = Validation.Failure;
 
 describe("handle()", () => {
-  const commandHandlers = {
-    incrementCounter: (state, command) =>
-      [{ type: "counterIncremented" }]
-  };
-
-  const handle = defineHandle(commandHandlers);
+  const incrementCounter = stub().returns([{ type: "counterIncremented" }]);
+  const handle = defineHandle({ incrementCounter });
 
   it("calls appropriate handler for command and state", () => {
     const state = { counter: 0 };
