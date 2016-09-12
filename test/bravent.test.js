@@ -1,5 +1,4 @@
 import assert from "assert";
-import sinon from "sinon";
 import { identity, evolve, inc, dec } from "ramda";
 import { defineAggregate } from "../lib/bravent";
 
