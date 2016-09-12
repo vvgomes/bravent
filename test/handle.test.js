@@ -2,6 +2,7 @@ import assert from "assert";
 import defineHandle from "../lib/handle";
 import Validation from "data.validation";
 
+const Success = Validation.Success;
 const Failure = Validation.Failure;
 
 describe("handle()", () => {
@@ -18,7 +19,7 @@ describe("handle()", () => {
 
     assert.deepEqual(
       handle(state, command),
-      [{ type: "counterIncremented" }]
+      Success([{ type: "counterIncremented" }])
     );
   });
 
