@@ -7,11 +7,12 @@ const Success = Validation.Success;
 const Failure = Validation.Failure;
 
 describe("handle()", () => {
-  const incrementCounter = stub().returns([{ type: "counterIncremented" }]);
-  const handle = defineHandle({ incrementCounter });
+  const handle = defineHandle({
+    incrementCounter: stub().returns([{ type: "counterIncremented" }])
+  });
 
   it("calls appropriate handler for command and state", () => {
-    const state = { counter: 0 };
+    const state = 0;
     const command = { type: "incrementCounter" };
 
     assert.deepEqual(
@@ -21,7 +22,7 @@ describe("handle()", () => {
   });
 
   it("results in failure when no handler is found", () => {
-    const state = { counter: 0 };
+    const state = 0;
     const command = { type: "unknown" };
 
     assert.deepEqual(
@@ -31,7 +32,7 @@ describe("handle()", () => {
   });
 
   it("results in failure when event has no type", () => {
-    const state = { counter: 0 };
+    const state = 0;
     const command = {};
 
     assert.deepEqual(
