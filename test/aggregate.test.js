@@ -1,50 +1,52 @@
 import defineAggregate from "../lib/aggregate";
 import Validation from "data.validation";
 import assert from "assert";
-import { spy } from "sinon";
-import { equals, evolve, inc, propOr } from "ramda";
+import { stub, spy } from "sinon";
+import { propOr, always } from "ramda";
 
 const Success = Validation.Success;
 const Failure = Validation.Failure;
 
-describe("Aggregate", () => {
+describe("Aggregate{}", () => {
 
-  const apply = (state, event) => propOr(state, event.type, {
-    counterIncremented: evolve({ counter: inc }, state)
-  });
+  const config = {
+    initialState: 0,
+    eventHandlers: {
+      counterIncremented: (state, event) => state + 1
+    },
+    commandHandlers: {
+      incrementCounter: (state, command) => Success([{ type: "counterIncremented" }])
+    }
+  };
 
-  const handle = (state, command) => propOr(Failure(["Error"]), command.type, {
-    incrementCounter: Success([{ type: "counterIncremented" }]) 
-  });
+  const defineApply = stub()
+    .withArgs(config.eventHandlers)
+    .returns((state, event) =>
+      propOr(always(state), event.type, config.eventHandlers)(state, event));
 
-  const Counter = defineAggregate(apply, handle, { counter: 0 });
+  const defineHandle = stub()
+    .withArgs(config.commandHandlers)
+    .returns((state, command) =>
+      propOr(always(Failure(["Error"])), command.type, config.commandHandlers)(state, command));
+
+  const Counter = defineAggregate(config, defineApply, defineHandle);
 
   describe("#state()", () => {
 
-    it("defaults to the initial state", () => {
-      assert.deepEqual(
-        Counter.of([]).state(),
-        { counter: 0 }
-      );
-    });
-
-    it("rebuilds state based on events", () => {
+    it("rebuilds state by applying existing events", () => {
       const events = [
-        { type: "counterIncremented" },
         { type: "counterIncremented" },
         { type: "counterIncremented" }
       ];
       
-      assert.deepEqual(
-        Counter.of(events).state(),
-        { counter: 3 }
-      );
+      assert.equal(Counter.of(events).state(), 2);
     });
   });
 
   describe("#dispatch()", () => {
-
+    
     describe("when successful", () => {
+
       it("creates a new aggregate with additional events", () => {
         const command = { type: "incrementCounter" };
 

@@ -6,17 +6,32 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _apply = require("./apply");
+
+var _apply2 = _interopRequireDefault(_apply);
+
+var _handle = require("./handle");
+
+var _handle2 = _interopRequireDefault(_handle);
+
 var _ramda = require("ramda");
-
-var _data = require("data.validation");
-
-var _data2 = _interopRequireDefault(_data);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var defineAggregate = function defineAggregate(apply, handle, initialState) {
+var defineAggregate = function defineAggregate() {
+  var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var defineApply = arguments.length <= 1 || arguments[1] === undefined ? _apply2.default : arguments[1];
+  var defineHandle = arguments.length <= 2 || arguments[2] === undefined ? _handle2.default : arguments[2];
+
+  var commandHandlers = (0, _ramda.propOr)({}, "commandHandlers", config);
+  var eventHandlers = (0, _ramda.propOr)({}, "eventHandlers", config);
+  var initialState = (0, _ramda.propOr)({}, "initialState", config);
+
+  var apply = defineApply(eventHandlers);
+  var handle = defineHandle(commandHandlers);
+
   return function () {
     function Aggregate() {
       var events = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
