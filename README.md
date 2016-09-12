@@ -22,7 +22,7 @@ const Counter = defineAggregate({
   },
   commandHandlers: {
     incrementCounter: (state, command) => [{ type: "counterIncremented" }],
-    decrementCounter: (state, command) => [{ type: "counterDecremented" }],
+    decrementCounter: (state, command) => [{ type: "counterDecremented" }]
   }
 });
 
