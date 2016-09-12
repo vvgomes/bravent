@@ -1,7 +1,7 @@
 import assert from "assert";
 import Validation from "data.validation";
 import validate from "../lib/validate";
-import { has, pipe, where, lt } from "ramda";
+import { has, where, test } from "ramda";
 
 const Success = Validation.Success;
 const Failure = Validation.Failure;
@@ -9,17 +9,17 @@ const Failure = Validation.Failure;
 describe("validate()", () => {
 
   const validations = {
-    "Date must be present.": has("date"),
-    "User ID must be present.": has("userId"), 
-    "Amount must be greater than zero.": where({ amount: lt(0)}),
+    "Name must be provided.": has("name"),
+    "Password must be provided.": has("password"),
+    "Email must be in a valid format.": where({ email: test(/@/) }),
   };
 
   it("results in success when all predicates are true", () => {
     const command = {
-      type: "makePayment",
-      amount: 50,
-      date: "2016-09-02",
-      userId: "666"
+      type: "addUser",
+      name: "John Doe",
+      email: "jd@gmail.com",
+      password: "cupcake"
     };
 
     assert.deepEqual(
@@ -30,16 +30,16 @@ describe("validate()", () => {
 
   it("results in failure when some predicates are false", () => {
     const command = {
-      type: "makePayment",
-      amount: 0,
-      userId: "666"
+      type: "addUser",
+      name: "John Doe",
+      email: "jdgmail.com"
     };
 
     assert.deepEqual(
       validate(command, validations),
       Failure([
-        "Date must be present.",
-        "Amount must be greater than zero."
+        "Password must be provided.",
+        "Email must be in a valid format."
       ])
     );
   });
