@@ -27,6 +27,6 @@
     "lint": "eslint {lib,test}/**/*",
     "test": "mocha --compilers js:babel-register --recursive",
     "dist": "babel lib/ --out-dir dist/",
-    "prepublish": "npm test && npm run dist"
+    "prepublish": "npm test && npm run lint && npm run dist"
   }
 }
