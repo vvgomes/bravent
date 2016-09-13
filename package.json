@@ -20,11 +20,6 @@
     "mocha": "^2.4.5",
     "sinon": "^1.17.5"
   },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
   "scripts": {
     "test": "mocha --compilers js:babel-register --recursive",
     "dist": "mkdir -p dist && rm -rf dist/* && babel lib --out-dir dist"
