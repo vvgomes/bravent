@@ -1,0 +1,37 @@
+---
+parser: babel-eslint
+
+extends:
+  - defaults
+  - defaults/configurations/eslint
+
+env:
+  node: true
+  mocha: true
+  es6: true
+
+rules:
+  semi:
+    - error
+    - always
+
+  object-curly-spacing:
+    - error
+    - always
+
+  space-before-function-paren:
+    - error
+    - always
+
+  complexity:
+    - error
+    - 2
+
+  eol-last:
+    - error
+
+  quotes:
+    - error
+    - double
+    - avoidEscape: true
+      allowTemplateLiterals: true
