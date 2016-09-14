@@ -26,6 +26,7 @@ describe("a Bravent aggregate", () => {
         .dispatch({ type: "decrementCounter" })
         .dispatch({ type: "incrementCounter" })
         .dispatch({ type: "incrementCounter" });
+
     assert.equal(newCounter.state(), 2);
   });
 });
