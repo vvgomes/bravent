@@ -6,12 +6,12 @@ describe("a Bravent aggregate", () => {
   const Counter = defineAggregate({
     initialState: 0,
     eventHandlers: {
-      counterIncremented: (state) => state + 1,
-      counterDecremented: (state) => state - 1
+      counterIncremented: (state, event) => state + 1,
+      counterDecremented: (state, event) => state - 1
     },
     commandHandlers: {
-      incrementCounter: () => [{ type: "counterIncremented" }],
-      decrementCounter: () => [{ type: "counterDecremented" }]
+      incrementCounter: (state, command) => [{ type: "counterIncremented" }],
+      decrementCounter: (state, command) => [{ type: "counterDecremented" }]
     }
   });
 

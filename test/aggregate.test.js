@@ -12,22 +12,28 @@ describe("Aggregate{}", () => {
   const config = {
     initialState: 0,
     eventHandlers: {
-      counterIncremented: (state) => state + 1
+      counterIncremented: (state, event) => state + 1
     },
     commandHandlers: {
-      incrementCounter: () => Success([{ type: "counterIncremented" }])
+      incrementCounter: (state, command) => Success([{ type: "counterIncremented" }])
     }
   };
 
   const defineApply = stub()
     .withArgs(config.eventHandlers)
-    .returns((state, event) =>
-      propOr(always(state), event.type, config.eventHandlers)(state, event));
+    .returns((state, event) => propOr(
+      always(state),
+      event.type,
+      config.eventHandlers
+    )(state, event));
 
   const defineHandle = stub()
     .withArgs(config.commandHandlers)
-    .returns((state, command) =>
-      propOr(always(Failure(["Error"])), command.type, config.commandHandlers)(state, command));
+    .returns((state, command) => propOr(
+      always(Failure(["Error"])),
+      command.type,
+      config.commandHandlers
+    )(state, command));
 
   const Counter = defineAggregate(config, defineApply, defineHandle);
 
