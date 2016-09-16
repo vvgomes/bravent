@@ -3,9 +3,11 @@ import assert from "assert";
 import { stub } from "sinon";
 
 describe("apply()", () => {
-  const apply = defineApply({
+  const eventHandlers = {
     counterIncremented: stub().returns(1)
-  });
+  };
+
+  const apply = defineApply(eventHandlers);
 
   it("calls appropriate handler for event and state", () => {
     const state = 0;

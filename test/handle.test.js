@@ -7,9 +7,11 @@ const Success = Validation.Success;
 const Failure = Validation.Failure;
 
 describe("handle()", () => {
-  const handle = defineHandle({
+  const commandHandlers = {
     incrementCounter: stub().returns([{ type: "counterIncremented" }])
-  });
+  };
+
+  const handle = defineHandle(commandHandlers);
 
   it("calls appropriate handler for command and state", () => {
     const state = 0;
