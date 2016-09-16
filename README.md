@@ -41,7 +41,7 @@ const newCounter =
     .dispatch({ type: "decrementCounter" })
     .dispatch({ type: "incrementCounter" })
     .dispatch({ type: "incrementCounter" });
-  
+
 console.log(newCounter.state()); // => 2
 
 ```

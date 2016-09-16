@@ -12,10 +12,10 @@ describe("Aggregate{}", () => {
   const config = {
     initialState: 0,
     eventHandlers: {
-      counterIncremented: (state, event) => state + 1
+      counterIncremented: (state) => state + 1
     },
     commandHandlers: {
-      incrementCounter: (state, command) => Success([{ type: "counterIncremented" }])
+      incrementCounter: () => Success([{ type: "counterIncremented" }])
     }
   };
 
@@ -38,13 +38,13 @@ describe("Aggregate{}", () => {
         { type: "counterIncremented" },
         { type: "counterIncremented" }
       ];
-      
+
       assert.equal(Counter.of(events).state(), 2);
     });
   });
 
   describe("#dispatch()", () => {
-    
+
     describe("when successful", () => {
 
       it("creates a new aggregate with additional events", () => {
@@ -92,4 +92,3 @@ describe("Aggregate{}", () => {
     });
   });
 });
-
