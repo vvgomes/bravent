@@ -27,7 +27,7 @@ const Counter = defineAggregate({
 });
 
 // Bravent doesn't impose how you store your events.
-const events = [];
+let events = [];
 
 // An aggregate instance is a container, like a functor.
 const counter = Counter.of(events);
@@ -43,6 +43,13 @@ const newCounter =
     .dispatch({ type: "incrementCounter" });
 
 console.log(newCounter.state()); // => 2
+
+// You can pass callbacks when dispatching commands.
+const onSuccess = (newEvents) => console.log("New events:", newEvents);
+const onFailure = (errors) => console.log("Errors:", errors);
+
+newCounter.dispatch({ type: "incrementCounter" }, onSuccess, onFailure);
+// => New events: [{ type:"counterIncremented" }]
 
 ```
 
