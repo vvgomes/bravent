@@ -12,10 +12,10 @@ describe("Aggregate{}", () => {
   const config = {
     initialState: 0,
     eventHandlers: {
-      counterIncremented: (state, event) => state + 1
+      counterIncremented: (state, _event) => state + 1
     },
     commandHandlers: {
-      incrementCounter: (state, command) => Success([{ type: "counterIncremented" }])
+      incrementCounter: (_state, _command) => Success([{ type: "counterIncremented" }])
     }
   };
 

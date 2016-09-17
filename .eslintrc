@@ -35,3 +35,8 @@ rules:
     - double
     - avoidEscape: true
       allowTemplateLiterals: true
+
+  no-unused-vars:
+    - error
+    - argsIgnorePattern: "^_"
+
