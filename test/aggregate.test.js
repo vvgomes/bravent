@@ -67,7 +67,7 @@ describe("Aggregate{}", () => {
         const onSuccess = spy();
         const onFailure = spy();
 
-        Counter.of([]).dispatch(command, onSuccess);
+        Counter.of([]).dispatch(command, onSuccess, onFailure);
 
         assert(onSuccess.calledWith([{ type: "counterIncremented" }]));
         assert(!onFailure.called);
